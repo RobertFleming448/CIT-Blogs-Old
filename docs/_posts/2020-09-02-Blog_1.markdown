@@ -23,13 +23,52 @@ Next are a few "optional" components that I included to make the program easier 
 
 I first made a bot that would navigate the page by pressing the `TAB` key a predetermined amount of times and pressing enter when required. To accomplish this, I used the `robot class` located in the `java.awt` library. This method encountered far too many infinite "death loops" when the bot got stuck on an incorrect page so I scrapped it. 
 
-The second bot while less portable, used the same `robot class` as before. To esnure the bot never fell into an infinite loop, I hardcoded the bot to navigate using the mouse cursor using the measurements of my screen. This was not an elegant solution but for my purposes it functioned. The bot was capable of scrolling through the pages pressing the required radio bubble and waiting at the add screen before restarting the process. The code for this bot is below:
+The second bot while less portable, used the same `Robot class` as before. To ensure the bot never fell into an infinite loop, I hardcoded the bot to navigate using the mouse cursor using the measurements of my screen. This was not an elegant solution but for my purposes it functioned. The bot was capable of scrolling through the pages pressing the required radio bubble and waiting at the add screen before restarting the process. The code for this bot is below:
 
 {% highlight java %}
-public static void main(String [] args)
-{
-	BOT CODE
-}
+public static void refreshPageAlt() throws AWTException, InterruptedException
+	{
+		Robot robot = new Robot();
+		
+		TimeUnit.SECONDS.sleep(2);
+		
+		robot.keyPress(KeyEvent.VK_F5);
+		robot.keyRelease(KeyEvent.VK_F5);
+		
+		TimeUnit.SECONDS.sleep(8);
+		
+		//first Page
+		robot.mouseMove(700, 200);
+		TimeUnit.SECONDS.sleep(1);
+		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+		TimeUnit.SECONDS.sleep(1);
+		robot.mouseMove(1910, 300);
+		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		robot.mouseMove(1910, 1000);
+		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+		TimeUnit.SECONDS.sleep(1);
+		robot.mouseMove(700, 940);
+		TimeUnit.SECONDS.sleep(1);
+		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+
+		TimeUnit.SECONDS.sleep(8);
+		
+		//Second Page
+		robot.mouseMove(220, 450);		//alt screen size: (220, 450)	//main screen size(220, 470)
+		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+		TimeUnit.SECONDS.sleep(1);
+		robot.mouseMove(600, 480);		//alt screen size: (600, 480)	//main screen size(600, 500)
+		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+		
+		append("Page Refreshed");
+	    System.out.println("Page Refreshed");
+	    
+	    TimeUnit.SECONDS.sleep(8);
+	}
 {% endhighlight %}
 
 
@@ -41,14 +80,51 @@ Next I had to come up with a function that would take the contents of the screen
 *	Yellow=Waitlisted
 *	Blue=Closed
 
-Using these colors I could easily determine changes in class availability based on color information. Utilizing the `Color class` and the `Rectangle class` I was able to take a screenshot of the page and get the RGB values of each pixel. By measuring the changes in blue pixels on screen from previous measurements I could determine if availability changed. Part of the code is bellow:
+Using these colors I could easily determine changes in class availability based on color information. Utilizing the `Color class` and the `Rectangle class` I was able to take a screenshot of the page and get the RGB values of each pixel. By measuring the changes in green pixels on screen from previous measurements I could determine if availability changed. Part of the code is bellow:
 
 
 {% highlight java %}
-public static void main(String [] args)
-{
-	color code
-}
+	public static void capture()
+	{
+        try 
+        {
+            Robot robot = new Robot();
+            //Fullscreen but cropped around class hardcoded for my screen
+            Rectangle screenSize = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+            //System.out.println(screenSize.width);
+            //System.out.println(screenSize.height);
+            Rectangle captureRect = new Rectangle(420, 1130 / 2, 581 , 448);		//alt screen dimensions: (420, 1130 / 2, 581 , 448);	//main screen size (420, 1150 / 2, 581 , 448 );
+            BufferedImage bufferedImage = robot.createScreenCapture(captureRect);
+            File file = new File("screen-capture.png");	 
+            boolean status = ImageIO.write(bufferedImage, "png", file);
+            append("Screen Captured ? " + status + " File Path:- " + file.getAbsolutePath());
+            System.out.println("Screen Captured ? " + status + " File Path:- " + file.getAbsolutePath());
+        } 
+	}
+	
+	public static int parseImg() throws IOException
+	{
+		int greenCount=0;
+		//Reading the image
+	      BufferedImage img = ImageIO.read(new File("screen-capture.png"));
+	      for (int y = 0; y < img.getHeight(); y++) 
+	      {
+	         for (int x = 0; x < img.getWidth(); x++) {
+	            //Retrieving contents of a pixel
+	            int pixel = img.getRGB(x,y);
+	            //Creating a Color object from pixel value
+	            Color color = new Color(pixel, true);
+	            //Retrieving the R G B values
+	            int blue = color.getBlue();
+	            if (blue<50)
+	            {
+	            	greenCount++;
+	            }
+	         }
+	      }
+	      return greenCount;
+
+	}
 {% endhighlight %}
 
 
@@ -66,33 +142,8 @@ Every so often, the program would get stuck in a loop that I had not accounted f
 
 **Logging**
 
-This was by far the easiest functiton to impliment. The mehod would just append the programs current status and time to a text document. Additionally it would save a screenshot titled the current time. If an error were to occur I could read the log and look at the corresponding image to try and determine the cause.
+This was by far the easiest function to implement. The method would just append the programs current status and time to a text document. Additionally, it would save a screenshot titled the current time. If an error were to occur, I could read the log and look at the corresponding image to try and determine the cause.
 
 **Conclusion**
 
-In the end the program was a rousing success. I had turned the program on while I was eating lunch and low and behold a notification. I ran to my computer and found the class space open. Without this notification there is no doubt this availabilty would have been snatched up before I noticed. For this reason, I think the time and money I invested in this program was well worth it.
-
-
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
-
-Jekyll requires blog post files to be named according to the following format:
-
-`YEAR-MONTH-DAY-title.MARKUP`
-
-Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
-
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
-
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+In the end the program was a rousing success. I had turned the program on while I was eating lunch and low and behold a notification. I ran to my computer and found the class space open. Without this notification there is no doubt this availability would have been snatched up before I noticed. For this reason, I think the time and money I invested in this program was well worth it.
