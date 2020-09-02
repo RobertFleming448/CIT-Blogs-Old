@@ -5,6 +5,8 @@ date:   2020-09-02 14:42:28 -0700
 categories: jekyll update
 ---
 
+
+<h2>Introduction</h2>
 Since this is my first blog post for CIT 480 and I have little to discuss in terms of class content, I think it would be fitting to describe the process I used to enroll in COMP 484 and this class. When I went to enroll in this course's corequisite, COMP 484, it was closed. I've been through this before and the only solution I've found is to refresh the page every couple of minutes to wait for availabilty. This would be no problem since this occured in midst of Covid stay at home orders. However, I would be unavailable to refresh this during meals, bathing, etc. To solve this I came up with a system to automize the refresh system.
 
 I decided to write this program in java as it was the programming language I was most familar with. First off, I devised a logical breakdown for the program. The required modules were:
