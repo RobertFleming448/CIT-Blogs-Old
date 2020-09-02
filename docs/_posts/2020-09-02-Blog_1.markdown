@@ -20,6 +20,7 @@ Next are a few "optional" components that I included to make the program easier 
 1.	Bug correction function that rescues the bot should it get stuck during page navigation
 
 **The Bot**
+
 I first made a bot that would navigate the page by pressing the `TAB` key a predetermined amount of times and pressing enter when required. To accomplish this, I used the `robot class` located in the `java.awt` library. This method encountered far too many infinite "death loops" when the bot got stuck on an incorrect page so I scrapped it. 
 
 The second bot while less portable, used the same `robot class` as before. To esnure the bot never fell into an infinite loop, I hardcoded the bot to navigate using the mouse cursor using the measurements of my screen. This was not an elegant solution but for my purposes it functioned. The bot was capable of scrolling through the pages pressing the required radio bubble and waiting at the add screen before restarting the process. The code for this bot is below:
@@ -27,10 +28,49 @@ The second bot while less portable, used the same `robot class` as before. To es
 {% highlight java %}
 public static void main(String [] args)
 {
-	system.out.println("TEST TEST");
+	BOT CODE
 }
 {% endhighlight %}
 
+
+**The Capture/Analyzer**
+
+Next I had to come up with a function that would take the contents of the screen and determine if a class became available. Luckily CSUN's system color codes classes with the follwoing schema:
+
+*	Green=Available
+*	Yellow=Waitlisted
+*	Blue=Closed
+
+Using these colors I could easily determine changes in class availability based on color information. Utilizing the `Color class` and the `Rectangle class` I was able to take a screenshot of the page and get the RGB values of each pixel. By measuring the changes in blue pixels on screen from previous measurements I could determine if availability changed. Part of the code is bellow:
+
+
+{% highlight java %}
+public static void main(String [] args)
+{
+	color code
+}
+{% endhighlight %}
+
+
+**Notification**
+
+Next I needed to be able to know if a change had occurred. There were 2 methods I thought of that could accomplish this task:
+*	Using a SMTP server to utilize my cell provider's email to SMS service address
+*	Using a third party service and paying per SMS message
+
+I had initially started with the email method but after some configuration and thought I determined I didn't have the resources to run a SMTP server on my computer. In the end I used a payed service called `Twilio` Twilio provides the libraries required to use their SMS services in dozens of languages, Java included. In the end from testing and utlization the service cost me a little over a dollar, with each text costing a fraction of a cent.
+
+**Error Correction**
+
+Every so often, the program would get stuck in a loop that I had not accounted for. This was not surprising as many parts of the bot were hardcoded for my environment. To fix this I added the link to the add page to the program. After encountering too many error values, the bot would rescue itself by returning to the starting page. While this solution was not the most elegant, again it worked for my purposes.
+
+**Logging**
+
+This was by far the easiest functiton to impliment. The mehod would just append the programs current status and time to a text document. Additionally it would save a screenshot titled the current time. If an error were to occur I could read the log and look at the corresponding image to try and determine the cause.
+
+**Conclusion**
+
+In the end the program was a rousing success. I had turned the program on while I was eating lunch and low and behold a notification. I ran to my computer and found the class space open. Without this notification there is no doubt this availabilty would have been snatched up before I noticed. For this reason, I think the time and money I invested in this program was well worth it.
 
 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
