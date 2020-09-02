@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "Robert Fleming Blog 1"
+date:   2020-09-02 14:42:28 -0700
+categories: jekyll update
+---
+
+Since this is my first blog post for CIT 480 and I have little to discuss in terms of class content, I think it would be fitting to describe the process I used to enroll in COMP 484 and this class. When I went to enroll in this courses corequisite, COMP 484, it was closed. I've been through this before and the only solution I've found is to refresh the page every couple of minutes to wait for availabilty. This would be no problem since this occured in midst of Covid stay at home orders. However, I would be unavialable to refresh this during meals, bathing, etc. To solve this I came up with a system to automize the refresh system.
+
+I decided to write this program in java as it wass the programming language I was most familar with. First off, I devised a logical breakdown for the program. The required modules were:
+
+1.	A bot that refreshed the page and navigated to the add screen
+1.	A function that captured the page
+1.	A function that parsed the image to see if any changes were made to the add screen
+1.	A function that notifies me when a change occurs, so I can run to my computer
+
+Next are a few "optional" components that I included to make the program easier to bug correct
+
+1.	A logging function that appends whenever a significant aciton occurs including time and picture
+1.	Bug correction function that rescues the bot should it get stuck during page navigation
+
+**The Bot**
+I first made a bot that would navigate the page by pressing the `TAB` key a predetermined amount of times and pressing enter when required. To accomplish this, I used the `robot class` located in the `java.awt` library. This method encountered far too many infinite "death loops" when the bot got stuck on an incorrect page so I scrapped it. 
+
+The second bot while less portable, used the same `robot class` as before. To esnure the bot never fell into an infinite loop, I hardcoded the bot to navigate using the mouse cursor using the measurements of my screen. This was not an elegant solution but for my purposes it functioned. The bot was capable of scrolling through the pages pressing the required radio bubble and waiting at the add screen before restarting the process. The code for this bot is below:
+
+{% highlight java %}
+public static void main(String [] args)
+{
+	system.out.println("TEST TEST");
+}
+{% endhighlight %}
+
+
+
+You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+
+Jekyll requires blog post files to be named according to the following format:
+
+`YEAR-MONTH-DAY-title.MARKUP`
+
+Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+
+Jekyll also offers powerful support for code snippets:
+
+{% highlight ruby %}
+def print_hi(name)
+  puts "Hi, #{name}"
+end
+print_hi('Tom')
+#=> prints 'Hi, Tom' to STDOUT.
+{% endhighlight %}
+
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
