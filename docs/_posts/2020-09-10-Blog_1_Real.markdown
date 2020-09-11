@@ -9,7 +9,7 @@ categories: jekyll update
 <h2>Introduction</h2>
 Given as this is my first officially numbered blog, I will now make the contents of this blog pertaining to my endeavors of class material. As a result, for this blog I will be primarily focusing on my experience setting up Git on my machine as well as Jekyll with its supporting modules.
 
-
+<br/>
 <h2>Git</h2>
 The first step was configuring Git on my home computer. I have used Git before for work-related source code management, but I have never used it on my personal computer. So, while I was familiar with the standard git bash commands `git add`, `git commit`, `git push` etc. I had never configured a repository nor set up a clone before. 
 
@@ -19,7 +19,7 @@ I first decided I was going to use my windows 10 OS for configuring settings and
 <h3>Git Configuration</h3>
 After several test commits of a separate repository, I grew wary of inputting my credentials on my Ubuntu environment. I ran the `git config --global credential.helper store` command before my next commit to save time for future commits. Beyond that, very little extra configurations were done to my Git environment.
 
-
+<br/>
 <h2>Jekyll</h2>
 Installing and configuring Jekyll was the next step in order to make quick easy blog posts for this class via markup language. However, Jekyll’s installation process was more in depth than Git’s and had a few more steps. 
 
@@ -32,11 +32,13 @@ The ubuntu installation was much easier and after a series of three or so comman
 <h3>Configuration</h3>
 Jekyll configuration was mostly to the point. I had to edit the `_config.yml` and `Gemfile` to get the page working from Gitpages. Later however a setting had to be reverted because it caused the Gitpage to load incorrectly. Lastly, I edited the index page to link to all future blogs so that I may access them easier in the future. The standard index page at some point just stopped loading and I am unaware of the cause so I decided to link every blog post manually and edit the dates/titles when appropriate.
 
+<br/>
 <h2>Writing the Blog</h2>
 Using the sample markup file, I was able to figure out the markup structure rather easily. A few google searches and looks through documentation helped me figure out how to format lists and code snippets to make the blog really pop.
 
 <h3>Building the Page</h3>
 I finally committed my changes and pushed the project but yet nothing appeared. Git had indicated that the build was a success, yet my page was no where to be found. After looking through Git’s repository settings I was able to find the source directory setting and set it to the `\_docs` directory. Additionally, I changed my theme which further improved the look of the blog.
 
+<br/>
 <h2>Conclusion</h2>
 Overall, this process was a good learning opportunity. I was able to set up a Git repository and clone it myself rather than work on a previously configured Git environment. I also was able to go through the setup of Jekyll, ruby, and bundler on two separate operating systems, with varying levels of success. I feel that the hardest part of this process was actually getting Jekyll to cooperate with Gitpages, and more documentation would have been appreciated. While at this point, I feel like publishing to Gitpages in pure HTML would have been simpler, I do appreciate how quickly Jekyll blogs can be written. The level of consistency blogposts can achieve with Jekyll and the rapid development does offset the steeper configuration learning curve.
