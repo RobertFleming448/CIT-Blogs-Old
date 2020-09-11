@@ -9,7 +9,7 @@ layout: home
 This blog is for all my endeavors in CIT 480 and will include updates on all projects associated with the class.
 
 <h2>Blog 0</h2>
-
+[Blog 0]({{ site.baseurl }}{% post_url 2020-09-02-Blog_1 %})
 <h2>Blog 1</h2>
-
+[Blog 1]({{ site.baseurl }}{% post_url 2020-09-02-Blog_1 %})
 <h2>Blog 2</h2>
