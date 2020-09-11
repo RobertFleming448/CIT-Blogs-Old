@@ -4,3 +4,6 @@
 
 layout: home
 ---
+
+<h2>Welcome to my Blog!</h2>
+This blog is for all my endeavors in CIT 480 and will include updates on all projects associated with the class.
