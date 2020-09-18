@@ -6,6 +6,48 @@ categories: jekyll update
 ---
 
 
-<h2>Introduction</h2>
-This blog will document the processes and tribulations I faced while completing Lab 1 Lamp Stack. I did not anticipate much trouble with this lab since I have done a very similar process hosting an apache webserver on an ubuntu container in a previous class. However, the task was slightly different and as a result had specific requirements. 
+
+
+<h2>Docker</h2>
+Docker was a tool I have used in the past scholastically. While my previous docker installation/environment was no longer available I did not anticipate much trouble setting it up again. I ran into a slight hiccup but that was to be expected.
+
+<h3>Docker Installation</h3>
+Again, I began this lab with the intention of completing it in my familiar windows 10 pro environment as I am most comfortable on this OS. However, I ran into certain difficulties. Since I am running the Pro version of Windows 10 I anticipated the standard docker installation that utilizes the Pro exclusive Hyper-V feature. I have had some issues in the past with this feature using Oracle VM Virtual Box, but since I had those problems fixed, I thought the docker setup would be simple. Immediately after installing docker from their [website](https://www.docker.com/products/docker-desktop), it failed to activate the windows Hyper-V feature. 
+I had already confirmed that my machine enabled virtualization via the BIOS and I did not want to troubleshoot the issue so I immediately moved to my Ubuntu environment. I am aware that Docker toolbox can function with Windows 10 Home features but I did not want to tinker with that when I knew it would work instantly on my Ubuntu Environment. After adding the Docker repository with:
+
+{% highlight shell %}
+$ sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+{% endhighlight %}
+
+I was able to install it with a few simple commands: `sudo apt-get update` and `sudo apt-get install docker-ce docker-ce-cli containerd.io` I will endeavor in the future to start labs on my ubuntu environment to save myself the headache.
+
+<h3>Docker Configuration</h3>
+While I was already familiar with docker, I wanted to get a feel for it again so I perused the available commands and briefly reviewed them. After that I tried out the Docker hello world image to see if everything was functioning as expected. Luckily it was so I pulled the most recent image of Ubuntu and created a container with the `docker run -it -p 8080:80 --name lab1 ubuntu:18.04 bash` command specified in the lab. As explained by the professor during lecture, the `8080:80` section is used to map local ports to ports from within the container. After that I set up a Docker user so I no longer had to run every command with root privileges.
+
+
+<br/>
+<h2>Creating the LAMP Stack</h2>
+
+<h3>Prepping the Container</h3>
+I refreshed the list of apt repositories via the `apt-get update && apt-get upgrade` command. Next, I installed git curl zip and vim using the apt-package manager. I chose vim over nano because personally I am just more familiar with it. 
+
+<h3>Other LAMP Installations</h3>
+Next, also using apt I installed apache and navigated to its configuration directory. After installation I ran the apache service and visited the localhost page in my browser and was greeted with the apache2 default page. Next, I installed the required MySQL modules using the prespecified commands. After confirming each module installed correctly, I moved on with the PHP installation. The one-liner provided in the lab for some reason was not working as expected so I manually installed each module separately. After these were all finished installing, I was able to confirm all required modules were operational. 
+
+<h3>LAMP Configuration</h3>
+Since the webpage we were making is being constructed via PHP we needed to change the order in the config file to give it precedence. Next, I created the `info.php` file:
+{% highlight PHP %}
+<?php
+	phpinfo();
+?>
+
+{% endhighlight %}
+Upon restarting the apache2 service and navigating to the info.php page on my localhost I was able to view the php info page.
+
+<h3>Cloning Application Repository</h3>
+After removing the php.info page I navigated to the `/var/www/html` directory. Next, I cloned the CSUN tech lab affinity repository. Next, I changed ownership of the affinity directory and created a sym link. Next, I went into the configuration files and made the prespecified changes; I restarted apache so the changes could take effect. I downloaded composer via `curl` navigated to the affinity directory and installed composer. Upon refreshing my web browser displaying localhost I was greeted with desired CSUN Affinity web service page. Lastly, I ran the curl command and took screenshots of both as my submission.
 
