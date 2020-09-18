@@ -7,7 +7,7 @@ categories: jekyll update
 
 
 <h2>Introduction</h2>
-This blog will document the processes and tribulations I faced while completing Lab 1 | Lamp Stack. I did not anticipate much trouble with this lab since I have done a very similar process hosting an apache webserver on an ubuntu container in a previous class. However, the task was slightly different and as a result had specific requirements. 
+This blog will document the processes and tribulations I faced while completing Lab 1 Lamp Stack. I did not anticipate much trouble with this lab since I have done a very similar process hosting an apache webserver on an ubuntu container in a previous class. However, the task was slightly different and as a result had specific requirements. 
 
 <h2>Docker</h2>
 Docker was a tool I have used in the past scholastically. While my previous docker installation/environment was no longer available I did not anticipate much trouble setting it up again. I ran into a slight hiccup but that was to be expected.
@@ -16,7 +16,13 @@ Docker was a tool I have used in the past scholastically. While my previous dock
 Again, I began this lab with the intention of completing it in my familiar windows 10 pro environment as I am most comfortable on this OS. However, I ran into certain difficulties. Since I am running the Pro version of Windows 10 I anticipated the standard docker installation that utilizes the Pro exclusive Hyper-V feature. I have had some issues in the past with this feature using Oracle VM Virtual Box, but since I had those problems fixed, I thought the docker setup would be simple. Immediately after installing docker from their [website](https://www.docker.com/products/docker-desktop), it failed to activate the windows Hyper-V feature. 
 I had already confirmed that my machine enabled virtualization via the BIOS and I did not want to troubleshoot the issue so I immediately moved to my Ubuntu environment. I am aware that Docker toolbox can function with Windows 10 Home features but I did not want to tinker with that when I knew it would work instantly on my Ubuntu Environment. After adding the Docker repository with:
 
+{% highlight shell %}
+$ sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
 
+{% endhighlight %}
 
 I was able to install it with a few simple commands: `sudo apt-get update` and `sudo apt-get install docker-ce docker-ce-cli containerd.io` I will endeavor in the future to start labs on my ubuntu environment to save myself the headache.
 
@@ -35,7 +41,12 @@ Next, also using apt I installed apache and navigated to its configuration direc
 
 <h3>LAMP Configuration</h3>
 Since the webpage we were making is being constructed via PHP we needed to change the order in the config file to give it precedence. Next, I created the `info.php` file:
+{% highlight PHP %}
+<?php
+	phpinfo();
+?>
 
+{% endhighlight %}
 Upon restarting the apache2 service and navigating to the info.php page on my localhost I was able to view the php info page.
 
 <h3>Cloning Application Repository</h3>
