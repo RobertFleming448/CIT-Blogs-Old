@@ -52,6 +52,3 @@ Upon restarting the apache2 service and navigating to the info.php page on my lo
 <h3>Cloning Application Repository</h3>
 After removing the php.info page I navigated to the `/var/www/html` directory. Next, I cloned the CSUN tech lab affinity repository. Next, I changed ownership of the affinity directory and created a sym link. Next, I went into the configuration files and made the prespecified changes; I restarted apache so the changes could take effect. I downloaded composer via `curl` navigated to the affinity directory and installed composer. Upon refreshing my web browser displaying localhost I was greeted with desired CSUN Affinity web service page. Lastly, I ran the curl command and took screenshots of both as my submission.
 
-<br/>
-<h2>Conclusion</h2>
-This lab was somewhat of a refresher for me. In the past I have already used Docker for school projects. Additionally, I had a brief introduction to PHP so I look forward to expanding on that should that be the path we continue on. The most difficulty I encountered was Docker installation failing but that was rather simple to avoid. I also struggled momentarily with the php module one-liner but was able to install them without much hassle. Overall, I am glad we did this lab as it gave me time to get reacquainted with Docker and LAMP functionality.
