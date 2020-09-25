@@ -9,17 +9,24 @@ categories: jekyll update
 <h2>Introduction</h2>
 This blog will detail my struggles and procedures used while attempting the second lab for CIT 480. Much of this lab was very similar to the procedures of Lab 1, since the goal was to make a docker file to replicate the Lab 1 environment on demand. Given that this lab would contain similar content to my previous write-up, I will instead go into detail the hiccups I encountered while trying to complete the lab and how I eventually overcame them.
 
+<br/>
+
 <h2>Problem Number 1.</h2>
 Since this lab was heavily based on Lab 1, I was refollowing Lab 1’s instructions to a T. However, one notable difference was required that I had not considered. During Lab 1 we created a docker container with the `docker run -it -p 8080:80 –name lab1 ubuntu:18.04 bash` That command created a docker container using the ubuntu 18.04 image, with internal port 80 mapped to external port 8080 named lab1. Even though I understood the command in full, there was one main problem I encountered and it had to do with the port-mapping. While I was creating the docker file I was using the previous lab manual as well as my finished container as reference. Since the goal was to recreate the previous environment 1:1 I thought it would be logical to use the same port numbers. Again, in hindsight this makes little sense. After searching online for a solution to the `bind for 0.0.0.0:8080 failed: port is already allocated` I encountered a forum post stating that since the port was already allocated to an active container, it could not be used again. It seemed so obvious and I knew I had 2 options:
 1.	stop the active container so the new container can be allocated the port
 1.	give the new container another port
-I chose option 2 so that I may cross reference both at the same time. With that problem solved, I tested an apache install to ensure the service was using the correct port, which it did. **Hurray**
 
+I chose option 2 so that I may cross reference both at the same time. With that problem solved, I tested an apache install to ensure the service was using the correct port, which it did. **Hurray**
+<br/>
 <h2>Problem Number 2.</h2>
 This problem was both easy to solve and simple. Like last lab I encountered difficulty when installing multiple PHP modules at once. I still think this was some strange dependency issue but I am unsure. To get around this I just used several `apt-get install` commands rather than one long one. While this did increase the length of my Docker file, PHP was able to install autonomously with no issue.
 
+<br/>
+
 <h2>Problem Number 3.</h2>
 This problem while less obvious to me had yet another simple fix. While I had no issue using the RUN command in the docker file due to the `DEBIAN_FRONTEND` env variable being set to noninteractive, I encountered some difficulty when trying to run a command that required a certain directory. I had assumed that the `RUN cd <dir name>` command would provide me with the desired results to change the working directory, yet when I the prompt informed me that certain directories could not be found in future steps, I was confused. I started by using the full directory but this was no longer possible when it came to the Affinity installation step. Looking on forum posts I learned that the `RUN cd <dir name>` command did not worked how I thought it did from within a docker file. Instead to change the working directory, you had to use the `WORKDIR <dire name>` instead. After I swapped every `RUN cd <dir name>` for its corresponding `WORKDIR <dire name>` everything worked like a charm and I was greeted with the glorious CSUN Web Service Page after I started the apache2 service.
+
+<br/>
 
 <h2>Conclusion</h2>
 Overall, I found this lab to be a real learning experience. I have done tasks similar to this one that involved automating tasks via scripts and those were mostly straight-forward. Even with docker I have set up my container to a predetermined configuration by copy and pasting a script into a file. However, this was my first time using a docker file. From my experience this is much better than the previous methods I had used to construct my container environment. I especially see the use of building a docker image that will see many repeated docker containers uses. My previous script method would take far longer should I need to replicate my environment periodically. Lastly, I learned that most mistakes can be caused by just being careless. This is especially evident in my **Problem Number 1.** where even though I had a complete understanding of the requirements, I still made a mistake that cost me time. As of now, my docker file could be submitted but I am still editing it to ensure that there is nothing superfluous included. Given that I still have time to work on it before the deadline, I will continue optimizing it during time I’ve allotted to CIT 480 lab work.
