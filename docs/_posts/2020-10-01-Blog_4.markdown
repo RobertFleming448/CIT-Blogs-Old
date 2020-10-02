@@ -15,17 +15,25 @@ The project was simple, we had to construct an HTML website with 4 pages and a s
 *	Address
 *	Table
 *	Audio
+
+
 <br/>
+
+
 I chose the Table element because I was already somewhat experienced with it and I felt that could allow me to provide better examples. Audio and Address were chosen because upon reading their documentation they seemed simple enough to implement while explaining my process.
 
 The Attributes that I chose to cover extensively were:
 *	Align
 *	Autoplay
 *	Preload
+
+
 <br/>
 I chose align because in previous work I found the text-align attribute to be somewhat limiting. Later I discovered that Align was deprecated, but I still used it because I had already committed and it still worked in HTML 5. Autoplay and Preload were chosen as they had functionality with the Audio element I had picked already. I would later run into some trouble with the Autoplay attribute.
 
 <br/>
+
+
 <h2>Address</h2>
 The address field was simple enough, I just embedded the address between the address tags in my footer. I could see this being useful for accessibility. Potentially screen readers could use this tag to better represent webpage address information to people with sight disabilities. An example of the tag is below:
 {% highlight html %}
@@ -45,7 +53,11 @@ The address field was simple enough, I just embedded the address between the add
 I used the Table tag in 2 ways.
 1.	To structure Data in a certain way
 1.	To structure the page in a certain way
+
+
 <br/>
+
+
 My first approach structured data into a table consisting of the release date and information regarding each entry in the series. Here’s an example of the structure I used:
 {% highlight html %}
 	<h3>The History of Zelda</h3>
