@@ -17,7 +17,7 @@ This blog is for all my endeavors in CIT 480 and will include updates on all pro
 <h2>Blog 3</h2>
 [LINK]({{ site.baseurl }}{% post_url 2020-09-24-Blog_3 %})
 <h2>Blog 4</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-10-Blog_4 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-10-01-Blog_4 %})
 <h2>Blog 5</h2>
 [LINK]({{ site.baseurl }}{% post_url 2020-09-10-Blog_5 %})
 <h2>Blog 6</h2>

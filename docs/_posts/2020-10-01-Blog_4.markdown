@@ -1,0 +1,115 @@
+---
+layout: post
+title:  "Robert Fleming Blog 4"
+date:   2020-09-10 14:42:28 -0700
+categories: jekyll update
+---
+
+
+<h2>Introduction</h2>
+Since I have already completed the assignments thus far for CIT 480, I find myself at a lack of content to construct this blog about. As a result, I feel it’s appropriate to move into a more COMP 484 related direction. In this blog I will go over my first HTML/CSS Project for COMP 484 and the requirements/how I accomplished them.
+
+<h2>Requirements</h2>
+The project was simple, we had to construct an HTML website with 4 pages and a stylesheet. Since we were allowed to pick any topic we wanted. I chose the video game franchise, The Legend of Zelda as I was certain I could fill 4 pages with content. Additionally, we had to use 3 unique elements and 3 unique attributes we had yet to go over in class. The elements I chose were:
+*	Address
+*	Table
+*	Audio
+I chose the Table element because I was already somewhat experienced with it and I felt that could allow me to provide better examples. Audio and Address were chosen because upon reading their documentation they seemed simple enough to implement while explaining my process.
+
+The Attributes that I chose to cover extensively were:
+*	Align
+*	Autoplay
+*	Preload
+I chose align because in previous work I found the text-align attribute to be somewhat limiting. Later I discovered that Align was deprecated, but I still used it because I had already committed and it still worked in HTML 5. Autoplay and Preload were chosen as they had functionality with the Audio element I had picked already. I would later run into some trouble with the Autoplay attribute.
+
+<h2>Address</h2>
+The address field was simple enough, I just embedded the address between the address tags in my footer. I could see this being useful for accessibility. Potentially screen readers could use this tag to better represent webpage address information to people with sight disabilities. An example of the tag is below:
+{% highlight html %}
+	<footer role="contentinfo">
+         <br>
+         <a href="https://github.com/RobertFleming448/COMP484-Project1" title="Introduction"><img src="assets/github.png" alt="View On GitHub" width="19%" height="19%" ></a>
+         <br>
+         <p> The Legend of Zelda &trade; Nintendo 1986-2020</p>
+         <p>Nintendo of America Mailing Address:</p>
+         <address>4600 150th Ave NE Redmond, WA 98052 </address>
+         <a href="#top" title="Back to the top">[TOP]</a>
+      </footer>
+{% endhighlight %}
+
+<h2>Table</h2>
+I used the Table tag in 2 ways.
+1.	To structure Data in a certain way
+1.	To structure the page in a certain way
+My first approach structured data into a table consisting of the release date and information regarding each entry in the series. Here’s an example of the structure I used:
+{% highlight html %}
+	<h3>The History of Zelda</h3>
+            <table class="timeline" id="timeline">
+               <tr>
+                  <th class="timeline">Title:</th>
+                  <th class="timeline">Description</th>
+                  <th class="timeline">Original Release Date:</th>
+                  <th class="timeline">Platforms:</th>
+                  <th class="timeline">Screenshot:</th>
+               </tr>
+               <tr>
+                  <td class="timeline">
+                     <h4>The Legend of Zelda</h4>
+                  </td>
+                  <td class="timeline">Collect the 8 fragments of the Triforce of Wisdom to defeat Ganon and rescue Princess Zelda</td>
+                  <td class="timeline">1986</td>
+                  <td class="timeline">Nintendo&nbsp;Entertainment&nbsp;System,<br>Gameboy Advance,<br>GameCube,<br>Wii<br>3ds,<br>Wii U,<br>Nintendo Switch</td>
+                  <td class="timeline"><img src="assets/timeline/zelda1.png" alt="Zelda 1 Picture" width="400" height="300"></td>
+               </tr>
+{% endhighlight %}
+
+With the style sheet enabled it looked like this:
+PICTURE HERE
+
+My second use was to structure the page to contain a description on one side and an image on the other. Here is an example of that structure:
+{% highlight html %}
+	<table class="center">
+               <tr>
+                  <td class="desc" id="link">
+                     <h4>Link</h4>
+                     <p>A courageous young lad clad in green. He wields the <a href="lore.html#courage" title="Triforce of Courage">Triforce of Courage</a> and the Master Sword. Using his wits and everlasting courage he endeavors to bring peace back to the land of Hyrule. While there are many heroes that go by the name Link, they all share one thing in common, the spirit of the hero.</p>
+                  </td>
+                  <td class="pic"><img src="assets/characters/link.png" alt="Link Picture" width="400" height="400"></td>
+               </tr>
+               <tr>
+                  <td class="desc" id="zelda">
+                     <h4>Zelda</h4>
+                     <p>The Princess of Hyrule's royal family. She possesses the <a href="lore.html#wisdom" title="Triforce of Wisdom">Triforce of Wisdom</a> which enhances her existent supernatural abilities. Legends say that the Princess is a descendant of the Goddess herself. Zelda assists Link in defeating evil in whichever era it may reside.</p>
+                  </td>
+                  <td><img src="assets/characters/zelda.png" alt="Zelda Picture" width="400" height="400"></td>
+               </tr>
+{% endhighlight %}
+
+And the associated image output:
+IMAGE
+
+<h2>Audio</h2>
+Of all the elements this was the easiest to implement. Similar to other media tags all I had to do was specify the source and the type like so:
+{% highlight html %}
+	<audio controls autoplay loop>
+                  <source src="audio/sacred_realm.mp3" type="audio/mpeg" preload="auto" >
+                  Audio Not supported by your browser
+               </audio>
+{% endhighlight %}
+
+The result is the following:
+IMAGE
+
+<h2>The Attributes</h2>
+Align was used on several pages in order to arrange information/media that was not text based. I used it on my audio, video, and images in order to justify them on the page where I wanted them.
+
+Autoplay was used twice due to a lack of thinking initially. I first used it on my audio tag but I had failed to realize that modern browsers block media autoplay if it’s not muted (rightfully so) To demonstrate my knowledge of the tag I instead added a muted mp4 to a separate page, which displayed as intended.
+IMAGE
+
+Preload was used to ensure certain media would be loaded automatically as the page loaded. My example was an mp4 file that I wanted to play as a sort of welcome banner. I wanted it to capture the attention of the user upon first visit so I made it load automatically.
+
+<h2>The Style Sheet</h2>
+The professor did not necessarily specify his preferred format for the CSS, be it in line, in document, or separate. As a precaution I just chose to make it separate. This helped me maintain stylistic unity on all my pages. To make the CSS I first started with the content of one of the professor’s sample pages. From there I tweaked the stylesheet until the desired look was attained. After that I structured my pages with filler words (ipsum lorem...)  to get the general idea of the page flow. I would later make small tweaks to my CSS to account for special page formatting but it maintained pretty consistent after the initial draft.
+
+<h2>Conclusion</h2>
+In the end I created a website that I was proud of. It doesn’t have any script functionality, but I feel I was able to construct a nice-looking page that abided by the requirements set. If you want to see my website, you can see it [here]https://github.com/RobertFleming448/COMP484-Project1) on github. Overall, I had fun making this site and it was cool getting to use graphical elements as most of my projects are either very ugly or non-graphical at all.
+
