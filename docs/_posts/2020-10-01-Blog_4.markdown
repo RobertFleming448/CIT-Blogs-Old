@@ -15,6 +15,7 @@ The project was simple, we had to construct an HTML website with 4 pages and a s
 *	Address
 *	Table
 *	Audio
+<br/>
 I chose the Table element because I was already somewhat experienced with it and I felt that could allow me to provide better examples. Audio and Address were chosen because upon reading their documentation they seemed simple enough to implement while explaining my process.
 
 The Attributes that I chose to cover extensively were:
@@ -90,6 +91,7 @@ My second use was to structure the page to contain a description on one side and
 {% endhighlight %}
 
 And the associated image output:
+<br/>
 IMAGE
 
 <br/>
@@ -103,6 +105,7 @@ Of all the elements this was the easiest to implement. Similar to other media ta
 {% endhighlight %}
 
 The result is the following:
+<br/>
 IMAGE
 
 <br/>
@@ -110,6 +113,7 @@ IMAGE
 Align was used on several pages in order to arrange information/media that was not text based. I used it on my audio, video, and images in order to justify them on the page where I wanted them.
 
 Autoplay was used twice due to a lack of thinking initially. I first used it on my audio tag but I had failed to realize that modern browsers block media autoplay if it’s not muted (rightfully so) To demonstrate my knowledge of the tag I instead added a muted mp4 to a separate page, which displayed as intended.
+<br/>
 IMAGE
 
 Preload was used to ensure certain media would be loaded automatically as the page loaded. My example was an mp4 file that I wanted to play as a sort of welcome banner. I wanted it to capture the attention of the user upon first visit so I made it load automatically.
