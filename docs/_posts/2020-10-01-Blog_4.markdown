@@ -25,7 +25,6 @@ The Attributes that I chose to cover extensively were:
 *	Preload
 
 
-<br/>
 I chose align because in previous work I found the text-align attribute to be somewhat limiting. Later I discovered that Align was deprecated, but I still used it because I had already committed and it still worked in HTML 5. Autoplay and Preload were chosen as they had functionality with the Audio element I had picked already. I would later run into some trouble with the Autoplay attribute.
 
 <br/>
@@ -74,7 +73,8 @@ My first approach structured data into a table consisting of the release date an
 {% endhighlight %}
 
 With the style sheet enabled it looked like this:
-PICTURE HERE
+<br/>
+![The Image](/assets/Blog4_4.PNG)
 
 My second use was to structure the page to contain a description on one side and an image on the other. Here is an example of that structure:
 {% highlight html %}
@@ -97,7 +97,7 @@ My second use was to structure the page to contain a description on one side and
 
 And the associated image output:
 <br/>
-IMAGE
+![The Image](/assets/Blog4_2.PNG)
 
 <br/>
 <h2>Audio</h2>
@@ -111,7 +111,7 @@ Of all the elements this was the easiest to implement. Similar to other media ta
 
 The result is the following:
 <br/>
-IMAGE
+![The Image](/assets/Blog4_3.PNG)
 
 <br/>
 <h2>The Attributes</h2>
@@ -119,7 +119,7 @@ Align was used on several pages in order to arrange information/media that was n
 
 Autoplay was used twice due to a lack of thinking initially. I first used it on my audio tag but I had failed to realize that modern browsers block media autoplay if it’s not muted (rightfully so) To demonstrate my knowledge of the tag I instead added a muted mp4 to a separate page, which displayed as intended.
 <br/>
-IMAGE
+![The Image](/assets/Blog4_1.PNG)
 
 Preload was used to ensure certain media would be loaded automatically as the page loaded. My example was an mp4 file that I wanted to play as a sort of welcome banner. I wanted it to capture the attention of the user upon first visit so I made it load automatically.
 
