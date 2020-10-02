@@ -16,7 +16,6 @@ The project was simple, we had to construct an HTML website with 4 pages and a s
 *	Table
 *	Audio
 
-<br/>
 
 I chose the Table element because I was already somewhat experienced with it and I felt that could allow me to provide better examples. Audio and Address were chosen because upon reading their documentation they seemed simple enough to implement while explaining my process.
 
@@ -51,7 +50,6 @@ I used the Table tag in 2 ways.
 1.	To structure Data in a certain way
 1.	To structure the page in a certain way
 
-<br/>
 
 My first approach structured data into a table consisting of the release date and information regarding each entry in the series. Here’s an example of the structure I used:
 {% highlight html %}
