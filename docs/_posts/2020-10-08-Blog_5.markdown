@@ -1,0 +1,49 @@
+---
+layout: post
+title:  "Robert Fleming Blog 5"
+date:   2020-10-08 14:42:28 -0700
+categories: jekyll update
+---
+
+
+<h2>Introduction</h2>
+All though I thought I had little to discuss last blog regarding CIT, this week has been even less productive. While I have made progress in my computer science class, it was involving yet another HTML/CSS project. I have chosen to not talk about the same topic two postings in a row. Perhaps I will revisit the content of that class when we move on to browser scripts. This week beyond that I have been attending to my other non-major classes, so I have little to talk about that is both scholastic and technical. As a result, I will go over a personal project I recently did that does fit the technical aspect but not the scholastic one.
+
+<h2>The Task</h2>
+There is a video game named Fight Night Round 2 released in 2005 on the Nintendo GameCube, PlayStation 2 and Xbox. The GameCube version of the game included a guest character named Little Mac from the Nintendo Punch-Out!! series. I am really into 3d printing and I wanted to get my hands on the 3d model of this character. The problem is that no common 3d model extractor in the community had bothered with this old 2005 clunky boxing game. This blog will detail the process I went through in order to acquire and optimize this model.
+
+![Little Mac Image](/assets/Blog5_4.PNG)
+
+<h2>Getting the Files</h2>
+The first thing I required was the games files. I was able to acquire the .ISO file of the disc by placing it into my Nintendo Wii and running some Homebrew software called `USBLoaderGX` [link]( https://sourceforge.net/projects/usbloadergx/) This software is used for legally acquiring the ISO files from owned video game discs for personal use only. Once I used the software on my legal copy of the game, I transferred the extracted files to my USB drive for further processing on my PC.
+
+<h2>Required Tools</h2>
+From this point forward I would need a few tools:
+*	A method of playing the game on my PC
+*	A method of extracting the 3d model textures
+*	A method of extracting the 3d model itself
+
+Luckily for me the GameCube Emulation community is thriving and I was able to use the `Dolphin Emulator`, (open source Wii/GameCube emulator) to both play and extract the textures.
+The harder part would be to extract the model. I did some research and a tool called `3d Ripper Dx` [link]( http://www.deep-shadows.com/hax/3DRipperDX.htm) This tool uses the DirectX 3d render engine to extract a single frame of an entire 3d scene.
+
+<h2>Extracting the Scene</h2>
+The first thing I needed to do was ensure that 3d Ripper Dx would work with the other software I was using. I researched the compatibly and 3d Ripper Dx only works with a deprecated version of Microsoft’s DirectX software as well as 32-bit programs. Luckily for me, the Dolphin emulator team provides experimental older builds that both support 32-bit operating systems and that old render engine. Once I configured the capture scene hotkey in 3d Ripper Dx I then opened the Dolphin Emulator and set the backend render engine to Direct3D9 (deprecated) While I knew this would affect performance, all that mattered was capturing the one scene. I tested the capture button and it functioned but was off. I’ll elaborate on that later.
+
+<h3>A Quick Aside</h3>
+Now in order to get my Desired Character in a Scene I first needed to unlock him. In order to unlock the character, you need to beat the included copy of the Super Nintendo Entertainment System game, Super Punch-out!! While I have done this before, playing on a poorly optimized render engine at subpar framerate was difficult. I still managed to do it after about an hour. Sorry for the little tangent, while it isn’t exactly technical, it was part of this process. 
+
+Now that my character was unlocked, I played a match with him and at an opportune time I took the snapshot. There was a method to my timing. In order to make the character as maneuverable in a 3d space as possible, I wanted him to be in a certain pose. In the 3d animation industry this is known as a T-pose.
+
+![Little Mac Image](/assets/Blog5_1.PNG)
+
+The closer he was to this position the easier processing would be later. Previously I mentioned that the snapshot was “off.” What I mean by that is that it was stretched and skewed bizarrely. 
+
+![Little Mac Image](/assets/Blog5_2.PNG)
+
+This is a direct result of method used to capture the model. 3d Ripper Dx uses the rendering engine to capture all polygons displayed within the screen’s capture. As a result, the angle of the camera will affect this outcome. To correct this, I brought the scene into my 3d modelling software of choice, [Blender](https://www.blender.org/). Blender is a free, community driven tool for 3d model editing and creation. While I am still very much a novice at it, I was able to change the scale of the axis in order to get a somewhat acceptable result:
+
+![Little Mac Image](/assets/Blog5_3.PNG)
+
+<h2>Conclusion</h2>
+Overall, I am somewhat happy with the result. While I do feel that my task was successful, I didn’t realize how rough the model would look by itself. Little Mac was not necessarily all nice looking in the game, let alone with no textures seen in the image above. As a result, I have hesitated on preparing the character for 3d printing because I have realized that I really don’t want a physical figure of this oddly proportioned man. I still had fun during the process and learned something along the way, so I do not consider this project an absolute failure. I still have the model should I ever decide to move forward with the post-processing in the future.
+
