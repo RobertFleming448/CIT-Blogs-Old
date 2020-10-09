@@ -34,16 +34,16 @@ Now in order to get my Desired Character in a Scene I first needed to unlock him
 
 Now that my character was unlocked, I played a match with him and at an opportune time I took the snapshot. There was a method to my timing. In order to make the character as maneuverable in a 3d space as possible, I wanted him to be in a certain pose. In the 3d animation industry this is known as a T-pose.
 
-![Little Mac Image](/assets/Blog5_1.PNG)
+![T-Pose](/assets/Blog5_1.PNG)
 
 The closer he was to this position the easier processing would be later. Previously I mentioned that the snapshot was “off.” What I mean by that is that it was stretched and skewed bizarrely. 
 
-![Little Mac Image](/assets/Blog5_2.PNG)
+![Skewed](/assets/Blog5_2.PNG)
 
 This is a direct result of method used to capture the model. 3d Ripper Dx uses the rendering engine to capture all polygons displayed within the screen’s capture. As a result, the angle of the camera will affect this outcome. To correct this, I brought the scene into my 3d modelling software of choice, [Blender](https://www.blender.org/). Blender is a free, community driven tool for 3d model editing and creation. While I am still very much a novice at it, I was able to change the scale of the axis in order to get a somewhat acceptable result:
 
-![Little Mac Image](/assets/Blog5_3.PNG)
+![Final Result](/assets/Blog5_3.PNG)
 
 <h2>Conclusion</h2>
-Overall, I am somewhat happy with the result. While I do feel that my task was successful, I didn’t realize how rough the model would look by itself. Little Mac was not necessarily all nice looking in the game, let alone with no textures seen in the image above. As a result, I have hesitated on preparing the character for 3d printing because I have realized that I really don’t want a physical figure of this oddly proportioned man. I still had fun during the process and learned something along the way, so I do not consider this project an absolute failure. I still have the model should I ever decide to move forward with the post-processing in the future.
+Overall, I am somewhat happy with the result. While I do feel that my task was successful, I didn’t realize how rough the model would look by itself. Little Mac was not necessarily all that nice looking in the game, let alone with no textures seen in the image above. As a result, I have hesitated on preparing the character for 3d printing because I have realized that I really don’t want a physical figure of this oddly proportioned man. I still had fun during the process and learned something along the way, so I do not consider this project an absolute failure. I still have the model should I ever decide to move forward with the post-processing in the future.
 
