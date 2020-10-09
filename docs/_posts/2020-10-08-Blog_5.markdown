@@ -23,7 +23,7 @@ From this point forward I would need a few tools:
 *	A method of extracting the 3d model textures
 *	A method of extracting the 3d model itself
 
-Luckily for me the GameCube Emulation community is thriving and I was able to use the `Dolphin Emulator`, (open source Wii/GameCube emulator) to both play and extract the textures.
+Luckily for me the GameCube Emulation community is thriving and I was able to use the `Dolphin Emulator`, (open source Wii/GameCube emulator) [link]( https://dolphin-emu.org/) to both play and extract the textures.
 The harder part would be to extract the model. I did some research and a tool called `3d Ripper Dx` [link]( http://www.deep-shadows.com/hax/3DRipperDX.htm) This tool uses the DirectX 3d render engine to extract a single frame of an entire 3d scene.
 
 <h2>Extracting the Scene</h2>
