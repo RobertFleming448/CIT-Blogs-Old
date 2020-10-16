@@ -1,32 +1,28 @@
 ---
 layout: post
 title:  "Robert Fleming Blog 6"
-date:   2020-09-10 14:42:28 -0700
+date:   2020-10-15 14:42:28 -0700
 categories: jekyll update
 ---
 
 
 <h2>Introduction</h2>
+For this blog I actually have something more technical to write about. Since I am a CIT student and this is a fact my good friends are aware of, it is not unlikely for me to be summoned for computer help. In a saga of advice, I have given to my self-admitting technology illiterate friend I aided him in a peer to peer networking issue. I am always happy to help my friends and to stretch my “IT muscles.”
 
-Ordered List
-1.	A logging function that appends whenever a significant action occurs including time and picture
-1.	Bug correction function that rescues the bot should it get stuck during page navigation
+<h2>A Little Background</h2>
+I have previously given this friend a lot of advice in the past. Some of this included the ways of running Windows applications on his MacBook. While my friend is very comfortable with Apple software, Windows is completely foreign to him. Through my guidance he installed bootcamp and had a working installation of Windows 10 on a separate hard drive partition. While troubleshooting issues he required elevated privileges so I instructed him on how to activate the administrator account with the `net user administrator /active:yes.` command. After a DirectX installation from Microsoft’s website, everything was functioning like a standard Windows 10 PC.
 
+<h2>The Problem</h2>
+My friend wanted to play a multiplayer fighting game with a mutual friend, however they were experiencing networking issues because of the lack of dedicated servers. In order to play with friends, the game required a peer to peer connection. From their description, they determined that they needed to open a port on their router to allow the transmission. This seemed like a possibility so I went along with it.
 
+<h2>The Method</h2>
+After realizing my instructions weren’t being followed, I decided to take matters into my own hands. I instructed the mutual friend to install (TeamViewer)[https://www.teamviewer.com/en-us/] I made sure to instruct him how anyone he gave his connection ID and password to would have full control over his PC. I am aware this ideally isn’t the remote-control application to use, however I thought it would be most accessible. First, I entered the control prompt to retrieve the router’s default gateway with the `ipconfig` command. I entered the gateway into the browser and accessed the Netgear landing page. I had prior experience with Netgear routers so I felt perfectly comfortable. I assumed that the user and password would be the default `admin` `admin` setup and I was correct. I instructed him the importance of changing these but I left that step up to him. However, when we progressed into the port triggering prompts, we ran into a wall. 3 security questions were shown, each with an answer set by his parents 4 years ago which they could not remember. At this point I told him his options were to either reset the router or we could try to continue without setting the router port triggers. He chose the second option.
 
+<h2>The Next Attempt</h2>
+I thought there might be a chance that the port was already allowed through the router settings and maybe was getting blocked by the Windows Firewall. While I was investigating, I found 3 antivirus software downloaded concurrently, which I instructed the removal of the unused ones. I went into the Windows advanced firewall settings and created 4 new rules. 2 inbound rules that allowed traffic from the specific port one for UDP on for TCP, and 2 outbound rules for the same protocols. I chose to do both as I was unsure which protocol the game would use.
 
-{% highlight java %}
-	Java code
-{% endhighlight %}
-
-
-
-
-Bulleted List
-*	Green=Available
-*	Yellow=Waitlisted
-*	Blue=Closed
-
+<h2>The Test</h2>
+After the rules were set, I instructed them to try the connection while I was still watching his screen. They navigated to the versus online screen and it prompted them for the network details. My first friend would be the host so he was the one tasked with providing his IP address. My friend began reading out his IP, “192.168-” I had to stop him there. This entire time I was trying to solve their problem when it was not even an issue. I told my friend that the IP address he was using was in fact his private IP. He was surprised to hear this because he said he tried the game with his brother earlier in the game and had no issues. His brother that was on a different computer about 5 ft away from him on the same network. I told that that connection only worked because they were on the same network and that is why the private IP address sufficed. After determining his IP address by directing him to https://www.whatismyip.com/what-is-my-public-ip-address/ he typed it in and it worked no problem.
 
 <h2>Conclusion</h2>
-In the end the program was a rousing success. I had turned the program on while I was eating lunch and low and behold a notification. I ran to my computer and found the class space open. Without this notification there is no doubt this availability would have been snatched up before I noticed. For this reason, I think the time and money I invested in this program was well worth it.
+Overall, I find this a very good example of why IT is an important field. While my friend isn’t absolutely clueless like he claims there a few pitfalls that perhaps someone less knowledgeable in networking would fall into. It asked for his IP address so he naturally provided the first one he saw. I can’t blame him for thinking this as I had the same issue when I was younger and less experienced. This taught me take problems at surface value and to try to determine the solution myself rather than take other’s word for it. While these issues generally aren’t the hardest to solve, I always enjoy the opportunity to problem solve and help my friends along the way.
