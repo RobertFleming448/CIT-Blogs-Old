@@ -1,0 +1,89 @@
+---
+layout: post
+title:  "Robert Fleming Blog 7"
+date:   2020-10-22 14:42:28 -0700
+categories: jekyll update
+---
+
+
+<h2>Introduction</h2>
+This Blog will detail the trials and tribulations I faced while completing Lab 3. Lab 3 tasked us with yet again recompleting the steps of the prior lab autonomously. This lab required us to once again recreate the lamp stack using an Ansible playbook. 
+
+<h2>Ansible</h2>
+Installing Ansible was very easy. I already had Python on my machine so I was able to easily install Ansible using the `apt-get install ansible` command. From that point I made a simple playbook that would run on my local host `(127.0. 0.1)` so that I could see if everything was functioning. I had it install PHP through apt. After I ran the Playbook I checked my PHP version and confirmed the playbook ran as intended.
+
+<h2>Issue 1: General Syntax Problems</h2>
+While reviewing my notes and documentation online I struggled briefly with the playbook syntax. The required spaces were a little tiresome, but the error messages did help me figure that out. Additionally, some commands took a little while to figure out the formatting of. At first, I wrote several Apt tasks before realizing it could all be done in a single task. Overall, this step took the longest but it was by no means difficult.
+
+<h2>Issue 2: PHP Installation</h2>
+As is a common theme with these labs I become too focused on one aspect that I make stupid mistakes. This lab I wanted to run my Playbook on some AWS EC2 instances. AWS is a tool that I really want to become acquainted with so I thought it was only logical to implement it into my projects when possible. Now here is the part where I experienced tunnel vision. I was reviewing the steps the Professor made when spinning up EC2 instances and followed them to a T. This included the image used. Despite being aware that the lab required 18.04 Ubuntu containers, I still focused on the latest available image on AWS. This would spell trouble with several PHP installations and certainly made feel foolish when the “aha” moment finally clicked. After selecting the proper instance and changing the IP’s in my hosts.ini file, the PHP installation continued without further issues.
+
+<h2>Issue 3: Affinity Installation</h2>
+First, I’d like to show off my first two attempts as well as my reasoning behind them
+Attempt 1:
+{% highlight yaml%}
+  - name: Download Composer Installer
+    get_url:
+      url: https://getcomposer.org/installer
+      dest: /installer
+      mode: 777
+    become: true
+
+  - name: Install Composer
+    command: php -f installer  --install-dir=/usr/local/bin --filename=composer
+    become: true  
+{% endhighlight %}
+
+<br>
+
+In this attempt, my logic was to first download the installer using Ansible’s built in `get_url` module. Next, I would try to install it using the php -f command to install from a file. I chose to do this because in this case the command task would fail. My assumption was that the pipe broke it but I am unsure. In conclusion this did not work and to be honest I am not all too surprised. I’m not even certain the php command is formatted properly.
+
+<br>
+
+Attempt 2:
+{% highlight yaml%}
+ - name: Install Composer
+    command: composer install
+    args:
+      chdir: /var/www/html/affinity
+    become: true
+
+  - name: Install Composer 
+   composer:
+      command: install
+      working_dir: /var/www/html/affinity
+    become: true
+{% endhighlight %}
+
+<br>
+
+In this attempt I invested much more time and I had higher hopes. While not native, apparently a user created Ansible plugin exists to install composer packages. I tried this is several different ways, using multiple different formats and versions. I even tried using deprecated versions to no avail. This led me to my final solution.
+
+<br>
+
+Attempt 3 (The Winner):
+{% highlight yaml%}
+  - name: Composer Install Script
+    script: script.sh
+    args:
+      chdir: /var/www/html/affinity
+    become: true
+{% endhighlight %}
+
+script.sh:
+{% highlight bash%}
+#! /bin/bash
+
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+composer install
+{% endhighlight %}
+
+<br>
+
+Now I do consider this somewhat “cheating” but in the long end it did work. I could not find a single way of accomplishing the composer installation via commands however I did discover a handy script module. From my research apparently this makes the process take a little longer, but it was the only solution I tried that worked. In the end I prefer a solution that isn’t 100% efficient over one that doesn’t work at all.
+
+<h2>Issue 4: Overthinking</h2>
+This mistake was barely an issue but so I’ll touch briefly on it. After Apache2 was installed it began running immediately. After all the configuration I bever restarted the service. This led to the CSUN tech labs page not displaying and causing a little panic. After I SSH’ed into my EC2 instance and restarted apache2 manually I discovered my mistake. I added a restart apache task to my playbook and everything worked as intended. To make sure everything was working altogether I spun up 2 entirely new EC2 Ubuntu 18.04 instances and tried the playbook fresh. I was greeted by 2 functioning splash pages so I knew my work was done.
+
+<h2>Conclusion</h2>
+In the end I view this lab as a two-way learning experience. One I got to learn how to automate tasks on a remote machine using Ansible and two I was able to get some good AWS experience. Both of these skills I feel will be useful moving forward and I am starting to get ideas of how to incorporate these new technologies into my home life and scholastic projects. I may have struggled a bit more with this lab than prior ones, however it’s the struggle that makes finding the solution that much more enjoyable.
