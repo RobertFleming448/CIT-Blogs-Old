@@ -1,0 +1,31 @@
+---
+layout: post
+title:  "Robert Fleming Blog 9"
+date:   2020-11-10 05:42:28 -0700
+categories: jekyll update
+---
+
+
+<h2>Introduction</h2>
+This blog will detail the process I used to complete the fourth lab for CIT 480, in which I configured an AWS EC2 instance to allow communication with an AWS simple storage system bucket. For the most part I thought this lab was pretty straight forward but I did have a minor hiccup which I will detail in a later section.
+
+<h2>Background</h2>
+I currently have access to 2 AWS accounts. One is my educate account which still has most of the initial 100 dollar funds. The other is my regular AWS account, which although it does not have any education credits is still within its, first year granting me free tier access to resources. As I think AWS knowledge will be a real boon to my career prospects, I have chosen to use the standard environment even if it means I end up paying for some of the resources I use. By doing it this way, I feel I will the most genuine experience with AWS and be more familiarized with how a traditional account functions.
+
+<h2>Creating the EC2</h2>
+This step is the part I am most familiar with. Luckily, I have completed the previous Ansible task with EC2 instances so I am very comfortable with the process. I chose an Ubuntu image as it is my Linux distribution of choice and chose to spin up a t2.micro instance to minimize resource costs. Lastly, I changed the security group do be one I have used in the past. This group allows http traffic everywhere yet restricts SSH traffic to exclusively my home IP range. After I selected the already generated key-pair to use, the instance began initialization. I ran the `ssh -i ~/Downloads/<key_name>.pem ubuntu@<EC2_IP>` to communicate with the instance and to update the apt repository for future use. I would also install Apache and update the required files at this time. I did this with `apt-get install apache2` and by using the vim text editor to overwrite the default apache page and styling.
+
+<h2>Creating the S3 Bucket</h2>
+This step I had less experience with but I felt confident in my abilities due to the previous in class live demo. First, I went to the S3 section of the AWS console and selected the create bucket option. Next, I gave my bucket an appropriate name and left all the other settings default. After that, I selected the create bucket option and the resources were allocated for my usage.
+
+<h2>Creating the IAM Role</h2>
+I had previously created an IAM user so I was somewhat familiarized with the IAM concept and security policies already. For that reason, I was confident this step would cause little issue. I went to the IAM roles section and selected the `create role` option. From there I specified that it would be used for an AWS service and clicked the EC2 common use case option. Next, I gave the role full bucket permissions with the ` AmazonS3FullAccess` policy. I left every other option as default and the role was created successfully.
+
+<h2>Giving the EC2 the Role</h2>
+I returned to the EC2 service dashboard and navigated to actions menu. From there I was able to change the IAM settings for the selected instance and give it the role I had just created. Next as a precaution, I disconnected my SSH connection to the machine and restarted the instance. Here comes the “hiccup” I had mentioned earlier. When I restarted the instance, I had not noticed that the IP address I was assigned had changed. In retrospect this makes total sense, since I was not reserving the address itself. I figured out the issue when trying to SSH and corrected the problem in my SSH command and my apache index page to reflect the IP change.
+
+<h2>Connecting the EC2 Instance to the S3 Bucket</h2>
+First, I installed the awscli for ubuntu with `sudo apt install awscli` After confirming the installation was a success, I researched the commands required to perform functions with the s3 bucket. In order to list the available buckets, I used the `aws s3api list-buckets` command which returned the information in a handy JSON format. Next in order to copy my index.html page to the bucket I used the `aws s3 cp index.html s3://<bucket_name>/` command. I checked in the AWS console to confirm the transfer was a success and did register a file had been transferred. Lastly to confirm the file with my cli I used the `aws s3 ls s3://<bucket_name>/` command. This command listed all the files located on the root of the bucket. The command outputted the file that I had just uploaded. After confirming the Apache webpage was loaded correctly and taking my requisite screen captures, I exited my SSH connection and deleted the contents of the S3 bucket. Once it was emptied, I terminated the bucket and EC2 instance to prevent further charges.
+
+<h2>Conclusion</h2>
+Overall, this task I found to be rather straight-forward. I am glad I had the previous experience with EC2 to speed up the initial process. While I didn’t struggle much with this lab, I still feel that I gained some valuable information. I learned more about the usefulness of IAM roles, and about how AWS services can be interconnected to make more complex web applications.
