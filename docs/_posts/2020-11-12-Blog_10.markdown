@@ -229,21 +229,27 @@ Please note that some of the code in this exists from a previous command line on
 Below I will post some of the resulting screenshots of my code to demonstrate how the process would look from start to finish:
 
 Running the .jar
+<br>
 ![Step 1](/assets/Blog10_1.PNG)
 
 Write out each problem step by step
+<br>
 ![Step 2](/assets/Blog10_2.PNG)
 
 Finished Result
+<br>
 ![Step 3](/assets/Blog10_3.PNG)
 
 Copy and Paste into Javascript
+<br>
 ![Step 4](/assets/Blog10_4.PNG)
 
 Reformatted and substituted numbers for values
+<br>
 ![Step 5](/assets/Blog10_5.PNG)
 
 Template in action (Beta Styling)
+<br>
 ![Result](/assets/Blog10_6.PNG)
 
 
