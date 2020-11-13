@@ -1,0 +1,251 @@
+---
+layout: post
+title:  "Robert Fleming Blog 10"
+date:   2020-11-12 14:42:28 -0700
+categories: jekyll update
+---
+
+
+<h2>Introduction</h2>
+For the next few blogs, I will be writing a series showing off bits of code I have written for my Computer Science 484 final group project. This blog will be used to provide a little background and explain a program that I wrote to help us in the future.
+
+
+<h2>The Project</h2>
+The project is an interactive web application that uses templates to auto-generate hundreds of unique algebra problems focusing on middle-school and high-school students. The application will track user progress by recording how many correct and incorrect answers a user gets on specific subjects. To implement this several systems needed to be made. 
+
+*	A login system where users can access their statistics
+*	A database to house user information and statistics
+*	A script system to generate problems and receive user input
+
+For this project we decided the best server-side scripting language to accomplish the login system would be PHP. While I have had more experience in the past with bash CGI scripting after looking at PHP formatting and use-cases, I determined it a far better fit for this project. Additionally, the database we will be using is a MySQL database which functions well with PHP. Lastly for the client-side scripting we will be using JavaScript.
+
+
+<h2>Today’s Subject</h2>
+As I mentioned previously to auto generate these problems, we will be using templates. To elaborate on this, we will create the skeleton of the problem `<val>y=<val>x+<val>` and substitute randomly generated numbers into the skeleton. By solving the skeleton ahead of time, we can provide better instructions for potential users while still maintaining a wide variety of problems. Now the problem we have is the formatting these skeletons. To demonstrate I’ll provide one of the templates that has already been made:
+
+{% highlight javascript %}
+	
+let answer = [x,"x","=",y,"y","+",b];
+
+document.getElementById("section2").innerHTML = (toString(answer));
+
+
+
+answer = [0,"=",y,"y","+",b,"-",x,"x"];
+
+document.getElementById("section3").innerHTML = (toString(answer));
+
+
+
+answer = ["-",y,"y","=","-",x,"x","+",b];
+
+document.getElementById("section4").innerHTML = (toString(answer));
+
+
+
+answer = ["y","=",x/y,"x","+",b/y];
+
+document.getElementById("section5").innerHTML = (toString(answer));
+{% endhighlight %}
+
+While the formatting on this isn’t overly complicated it still takes some time to write out the entire thing in JavaScript array format. This format was chosen so we would have easier access to each individual item in the array for editing. To simplify this process for future templates, I decided to create a program in Java, as it is the language, I am most familiar with.
+
+
+<h2>The Program:</h2>
+Like I always do I mentally list out the requirements for a program so I can break each function down. For this program we would need:
+*	Something to accept user input
+*	Something to determine what each part of the input is e.g. alphabet, number, or symbol
+*	Something to format it in JavaScript array notation
+
+At first I used the Java `Scanner` class located in the `util` package, but later I decided to use `JOptionPane` to make the program more accessible to the other collaborators on the project. Using the `showInputDialog()` method I was able to get user input as a String. Next using an `ArrayList` to make the array data more manageable and a for loop, I broke the string into a list of individual characters. Next, I put each character through a distinguisher method to determine if they were an alphabetical char or not. I chose this method as numbers and symbols would be used for substitution and problem structure respectively, however characters were meant to be literal. Based on this distinguisher I would format the alphabetic characters and symbols as strings while the numbers would be left for future replacement by a JavaScript function. Lastly, I would assemble this into an array and print each step in the problem in one large output to be copied and pasted into the JavaScript template script.
+The code for the program is bellow:
+{% highlight java %}
+	package main;
+import java.awt.Component;
+import java.util.*;
+import javax.swing.*;
+
+public class TemplateHelper {
+	private static final Component frame = null;
+
+	public static void main(String[]args)
+	{
+		ArrayList<String> problem = new ArrayList<String>();
+		
+		JOptionPane.showMessageDialog(frame, "Type in your equation to format. Use numerals (1,2,3...) for numerals and alpha (a,b,c...) for variables.");
+		System.out.println("Type in your equation to format. Use numerals (1,2,3...) for numerals and alpha (a,b,c...) for variables.");
+		int x=0;
+		while(true)
+		{
+			x++;
+			System.out.println("Enter your equation or enter ~ to start new or Enter ! to stop.");
+			System.out.print(">");
+			String input=JOptionPane.showInputDialog("Enter your equation or enter ~ to start new or Enter ! to stop.");
+			if(input==null||input.equals("!"))
+			{
+				break;
+			}
+			if(input.equals("~"))
+			{
+				x=0;
+				htmlFormat(problem.toArray());
+				problem.clear();
+			}
+			else
+			{
+				System.out.print("Step "+x+" is: ");
+				System.out.println(format(input));
+				problem.add(format(input));
+			}
+			
+		}
+		htmlFormat(problem.toArray());
+		System.out.println("Execution Finished");
+	}
+	
+	public static String format(String input)
+	{
+		char[] result = new char[input.length()];
+		ArrayList<String> list = new ArrayList<String>();
+		
+		for(int i=0; i < input.length(); i++)
+		{
+			result[i]=input.charAt(i);
+		}
+		for(int i=0; i < result.length; i++)
+		{
+			if(isAlpha(result[i])==false)
+			{
+				if(Character.isDigit(result[i])==false)
+				{
+					list.add("\""+result[i]+"\"");
+				}
+				else
+				{
+					list.add(Character.toString(result[i]));
+				}
+			}
+			else
+			{
+				list.add("\""+result[i]+"\"");
+			}
+		}
+		return list.toString();
+	}
+	
+	public static boolean isAlpha(char input)
+	{
+		if(Character.isLetter(input))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public static String toString(char [] input)
+	{
+		String result = null;
+		return result;
+	}
+	
+	public static void htmlFormat(Object[] objects)
+	{
+		if(objects.length==0)
+		{
+			return;
+		}
+		System.out.println("Problem Finished HTML/Javascript code output: \n");
+		String output="";
+		
+		for(int i=0; i<objects.length; i++)
+		{
+			if(i==0) 
+			{
+				System.out.print("let answer = ");
+				output+=("let answer = ");
+			}
+			else
+			{
+				System.out.print("answer = ");
+				output+=("answer = ");
+			}
+			System.out.println(objects[i]+";");
+			output+=(objects[i]+";\n");
+			int count = i+2;
+			System.out.println("document.getElementById(\"section"+ count +"\").innerHTML = (toString(answer));");
+			output+=("document.getElementById(\"section"+ count +"\").innerHTML = (toString(answer));\n");
+			System.out.println("");
+			output+="\n";
+		}
+		new PaneMessage(output);
+	}
+
+}
+{% endhighlight %}
+<br>
+{% highlight java %}
+	package main;
+
+import java.awt.EventQueue;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+public class PaneMessage {
+    public PaneMessage(String message) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                }
+
+                JTextArea ta = new JTextArea(30, 100);
+                ta.setText(message);
+                ta.setWrapStyleWord(true);
+                ta.setLineWrap(true);
+                ta.setCaretPosition(0);
+                ta.setEditable(false);
+
+                JOptionPane.showMessageDialog(null, new JScrollPane(ta), "RESULT", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        });
+    }
+}
+{% endhighlight %}
+
+<br>
+
+Please note that some of the code in this exists from a previous command line only version, thus explaining the print statements.
+
+
+<h2>Results:</h2>
+Below I will post some of the resulting screenshots of my code to demonstrate how the process would look from start to finish:
+
+Running the .jar
+![Step 1](/assets/Blog10_1.PNG)
+
+Write out each problem step by step
+![Step 2](/assets/Blog10_2.PNG)
+
+Finished Result
+![Step 3](/assets/Blog10_3.PNG)
+
+Copy and Paste into Javascript
+![Step 4](/assets/Blog10_4.PNG)
+
+Reformatted and substituted numbers for values
+![Step 5](/assets/Blog10_5.PNG)
+
+Template in action (Beta Styling)
+![Result](/assets/Blog10_6.PNG)
+
+
+<h2>Conclusion</h2>
+In the end I am happy with the program and my group appears to be so too. I’m hoping the time I invested on this will make our future template creating efforts easier. Next blog I will talk about how I created a PHP login system from scratch `...with the massive help of an online tutorial` Please stay tuned for the next in the Comp 484 web application series!
