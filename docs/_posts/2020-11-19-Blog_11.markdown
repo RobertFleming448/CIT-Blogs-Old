@@ -1,0 +1,111 @@
+---
+layout: post
+title:  "Robert Fleming Blog 11"
+date:   2020-11-19 14:42:28 -0700
+categories: jekyll update
+---
+
+
+<h2>Introduction</h2>
+This blog will feature part 2 of my PHP login system explanation. For some more background make sure to check out my 10th blog in this series. This blog will be rather lengthy so I will try my best not repeat my past blog’s contents. Without further ado, this is how I made a login system for my Comp 484 final group project.
+
+<h2>Required Scripts</h2>
+This system required many scripts written in PHP. PHP is a server-side scripting language. In the past I have done server-side scripting via CGI scripting but never have I used PHP. So, if some of my explanations aren’t 100% accurate I apologize ahead of time. Some of the required scripts we need are:
+*	signup script
+*	login script
+*	logout script
+
+Additionally, in order to store user information we will need to use a database. For this project I chose a MySQL database that came bundled with a Windows server client package called [XAMPP]( https://www.apachefriends.org/index.html). XAMPP’s SQL database is MariaDB which is a fork of MySQL and as a result has interchangeable syntax. I chose this to software to make development easier on my localhost while making the application easy to transfer to other operating systems. To interact with the database I also utilized a database connection handler script.
+
+<h2>Signup Script</h2>
+The signup script is ran whenever a user on the `signup.php` page fills out the signup form. The form contains standard information such as Username, Email, password, and repeat password. Once the user presses the submit button, error handlers make sure the information is valid through multiple functions. Here is an example of one of these error handlers and functions:
+{% highlight php %}
+  if (emptyInputSignup($name, $email, $username, $pwd, $pwdRepeat) !== false) { //error handlers
+    header("location: ../signup.php?error=emptyinput");
+    exit();
+  }
+
+
+function emptyInputSignup($name, $email, $username, $pwd, $pwdRepeat) //checks if fields are empty on signup page; returns true if fields are empty
+{
+  $result;
+  if(empty($name) || empty($email) || empty($username) || empty($pwd) || empty($pwdRepeat)){
+    $result=true;
+  }
+  else {
+    $result=false;
+  }
+  return $result;
+}{% endhighlight %}
+
+
+If the script is interrupted by an error, the user is redirected to the signup page with a query string that will inform the PHP script to update the page in a manor to alert the user of the error that has occurred. If no such error occurs, the script will progress to the createUser function. This function will take the information from the form and will interact with the database Handler script to insert a new entry to the database on the server. In this function there is something called an SQL statement. This statement will ensure that no SQL injection attacks may occur by validating a command before data is added to it. The statement for the createUSer function is below:
+{% highlight PHP %}
+	  $sql = "INSERT INTO users (usersName, usersEmail, usersUid, usersPwd) VALUES (?, ?, ?, ?);";
+  $stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
+
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    header("location: ../signup.php?error=stmtFailed");
+    exit();
+  }
+  $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+
+  mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd);
+  mysqli_stmt_execute($stmt);
+  mysqli_stmt_close($stmt);
+{% endhighlight %}
+
+This code will communicate with the database and if the connection is successful, will add the user’s name, username, email address, and hashed password to the database. I could not call myself an IT student if I stored the user’s password in plain text, could I? 
+
+
+<h2>Login Script</h2>
+Now that a user can register for the site, they need to be able to login with the credentials they set. This is remarkably similar to the prior step but in reverse order almost. Users must still enter their credentials without error, however this time, the script retrieves info from the database to confirm if credentials are correct or not. This is accomplished with an SQL statement as well:
+
+{% highlight PHP %}
+	$stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
+
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    header("location: ../signup.php?error=stmtFailed");
+  }
+
+  mysqli_stmt_bind_param($stmt, "ss", $username, $email);
+  mysqli_stmt_execute($stmt);
+
+  $resultData = mysqli_stmt_get_result($stmt);
+
+{% endhighlight %}
+
+If users inputted credentials match credentials of the database, a session is started and session variables containing key user information is saved to the browser. By saving these session variables, we can dynamically change the page to adhere to a particular user’s database entry. For example, now that a user is logged in, we no longer need to display the login or signup page on the navbar. Additionally, we can replace these options with other links such as an account page or a logout option. 
+
+
+<h2>Logout Script</h2>
+Compared to the other scripts in this blog, this is by far the simplest. The login script involved saving user information to session variables to change page content via PHP. This script must simply restore it to that previous state. This can be done by clearing all set session variables and by closing the session. Below is a simple script that accomplishes this task.
+
+{% highlight PHP %}
+	<?php
+//logs out user by destroying session information. Redirects to main page
+session_start();
+session_unset();
+session_destroy();
+
+header("location: ../index.php");
+{% endhighlight %}
+
+
+<h2>Acknowledgements</h2>
+I would like to take this part to acknowledge the person that taught me the basics of PHP used in these scripts and many more. Had it not been for [Dano Krossing’s PHP tutorial series on YouTube]( https://www.youtube.com/watch?v=gCo6JqGMi30) I would have been very lost. He truly paved the groundwork that would allow my team and I to integrate login features to our website and I wanted to give credit where credit is due. As a result of me following this tutorial some of the code shown in this blog will look like code displayed in his video. I have added to the code and suited it to better fit project guidelines but that falls beyond the scope of this blog. 
+
+
+<h2>Conclusion</h2>
+Overall, this step took a very long time. I had never worked with PHP before, but now that I am more experienced with it, I can more easily write code by myself and read online examples. I think my ability to adapt to this language was due to its relative similarity to Java, of which I am very familiar with. In the next blog I will go over some additional modules I added to my PHP login system, without the use of a my online guide or tutorial. This will include a change password system and a 2 factor authentication check using Twilio infrastructure. 
+
+
+
+
+
+
+
+
+
+
+<h2>Conclusion</h2>
