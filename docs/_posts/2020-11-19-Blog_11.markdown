@@ -97,7 +97,7 @@ I would like to take this part to acknowledge the person that taught me the basi
 
 
 <h2>Conclusion</h2>
-Overall, this step took a very long time. I had never worked with PHP before, but now that I am more experienced with it, I can more easily write code by myself and read online examples. I think my ability to adapt to this language was due to its relative similarity to Java, of which I am very familiar with. In the next blog I will go over some additional modules I added to my PHP login system, without the use of a my online guide or tutorial. This will include a change password system and a 2 factor authentication check using Twilio infrastructure. 
+Overall, this step took a very long time. I had never worked with PHP before, but now that I am more experienced with it, I can more easily write code by myself and read online examples. I think my ability to adapt to this language was due to its relative similarity to Java, of which I am very familiar with. In the next blog I will go over some additional modules I added to my PHP login system, without the use of any online guide or tutorial. This will include a change password system and a 2 factor authentication check using Twilio infrastructure. 
 
 
 
