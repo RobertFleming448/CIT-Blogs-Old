@@ -1,0 +1,172 @@
+---
+layout: post
+title:  "Robert Fleming Blog 12"
+date:   2020-12-03 14:42:28 -0700
+categories: jekyll update
+---
+
+
+
+
+<h2>Introduction</h2>
+This blog will be the final part in my PHP learning series. In the last part we went over the basic scripts and functions required to create a basic website login/signup feature. In this section I will go over the additional optional features I added to make the website more complete. The two features I will go over in this blog are the change password script, and the integration of 2 step authentication via Twilio webservices.
+Beginning Setup
+
+Before we dive straight into the scripts first, we need to a page to host links to these scripts. Since I do not feel these features should be included as default entries on the standard account page, I created a separate options php page. This page is very basic and like the other pages use the same universal header and footer. It only exists to hold the forms required to change user settings.
+Change Password
+
+The first feature is the change password feature. For any website it is wise to allow users to change passwords should their old choice become compromised. So, while I do consider this an optional feature it’s one of the more “required” optional features. This script functions very similarly to the login script so much of the code maintains that structure. For more information on that script, visit my [11th blog in this series]( https://robertfleming448.github.io/jekyll/update/2020/11/19/Blog_11.html). This script is similar because it takes the users old password, confirms it is correct, and will change to the newly inputted password. Additionally, similarly to the signup script, a user must enter the same password twice to ensure no mistakes have been made in the entry. Like last time, there are error handlers that prevent users from typing invalid inputs for example:
+
+
+{% highlight PHP %}
+//error handler receivers
+	if(isset($_GET["error"])){ //Error handlers that call functions to check errors, will print corresponding problem under form
+				if($_GET["error"] == "emptyinput"){
+					echo "<p>Please fill all fields</p>";
+				}
+				else if($_GET["error"] == "pwdMatch"){
+					echo "<p>Passwords don't match</p>";
+				}
+				else if($_GET["error"] == "wrongPwd"){
+					echo "<p>Incorrect Password</p>";
+				}
+				else if($_GET["error"] == "stmtFailed"){
+					echo "<p>Sorry Something went wrong. Please try again later.</p>";
+				}
+				else if($_GET["error"] == "success"){
+					echo "<p>Password changed Succesfully</p>";
+				}
+			}
+			
+			
+//error handler functions example:
+
+
+function emptyInputChange($oldPwd, $pwd, $pwdRepeat)  //checks if change password fields are empty, if empty return true
+{
+  $result;
+  if(empty($oldPwd) || empty($pwd) || empty($pwdRepeat)){
+    $result=true;
+  }
+  else {
+    $result=false;
+  }
+  return $result;
+}
+{% endhighlight %}
+
+
+If the password matches what we have recorded in our database, and no error handlers return true, we can change the user’s password and notify them of the change. The sql statement script is located here:
+
+
+{% highlight PHP %}
+	function changePassword($conn, $userUid, $pwd) //changes user password by altering entry in DB
+{
+
+  $sql = "UPDATE users SET usersPwd=? WHERE usersUid=? OR usersEmail=?;";
+
+  $stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
+
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    header("location: ../accountSettings.php?error=stmtFailed");
+    exit();
+  }
+  $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+
+  mysqli_stmt_bind_param($stmt, "sss", $hashedPwd, $userUid, $userUid);
+  mysqli_stmt_execute($stmt);
+  mysqli_stmt_close($stmt);
+
+  header("location: ../accountSettings.php?error=success");
+}
+{% endhighlight %}
+
+
+Like last time we ensure to hash the password so even in the event of data breach user password information will not be divulged.
+
+While this step, seems simple, it actually gave me the most difficulty of any of the scripts. I attribute this to the fact that this was my first script written without aid from an online source or tutorial. These scripts helped me make errors throughout the process and learn the language better.
+
+
+<h2>Two Factor</h2>
+While I mentioned that the prior feature gave me more trouble, it is not to undermine the effort that went into getting 2-factor authentication to work. This process was much longer and for the sake of brevity, I will only mention the key aspects that were not repeated. 
+
+First off, was to figure out how I was going to send a SMS message for 2 factor purposes. If you recall in my first blog in this series, I went over a bot program I made to aid in registration. In that program I used the java SDK for Twilio SMS web services. So, for this section since I am using PHP I chose to dabble in the PHP SDK Twilio provides. If you want more detail on the Twilio service on not just the application for this project see my [first blog]( https://robertfleming448.github.io/jekyll/update/2020/09/02/Blog_1.html). 
+
+The scripts required for this are the following:
+*	enable 2-factor
+*	disable 2-factor
+*	check 2-factor on enable
+*	check 2-factor on login
+
+I chose to differentiate the last 2 so that a user could input a different phone number on enabling in case they were to make a mistake typing their phone number. This could have been done with a few conditional statements to make only one page/script, but it seemed far too complicated and I would be able to save time just reusing code snippets.
+
+This is the code for enabling 2-factor:
+
+
+{% highlight PHP %}
+	function disable2Factor($conn, $username) //disables 2-factor by setting user phone number to null in DB entry
+{
+  $sql = "UPDATE users SET usersPhone=NULL WHERE usersUid=? OR usersEmail=?;";
+
+  $stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
+
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //echo("Error description: " . $conn -> error);
+    header("location: ../accountSettings.php?error=stmtFailed");
+    exit();
+  }
+  mysqli_stmt_bind_param($stmt, "ss", $username, $username);
+  mysqli_stmt_execute($stmt);
+  mysqli_stmt_close($stmt);
+
+  $_SESSION["TwoFactor"] =  false;
+  header("location: ../accountSettings.php?error=twoFactorDisabled");
+}
+{% endhighlight %}
+
+
+...and this is the code for disabling 2-factor
+
+
+{% highlight PHP %}
+	function disable2Factor($conn, $username) //disables 2-factor by setting user phone number to null in DB entry
+{
+  $sql = "UPDATE users SET usersPhone=NULL WHERE usersUid=? OR usersEmail=?;";
+
+  $stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
+
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //echo("Error description: " . $conn -> error);
+    header("location: ../accountSettings.php?error=stmtFailed");
+    exit();
+  }
+  mysqli_stmt_bind_param($stmt, "ss", $username, $username);
+  mysqli_stmt_execute($stmt);
+  mysqli_stmt_close($stmt);
+
+  $_SESSION["TwoFactor"] =  false;
+  header("
+{% endhighlight %}
+
+
+These functions work by inserting the phone number into the user’s database entry to set 2-factor and setting the value to `null` to deactivate. During login we can check if this value is set or not to determine whether the user should receive the 2-factor prompt.
+
+Lastly we need to generate the code for the user to enter into the prompt:
+
+
+{% highlight PHP %}
+	function codeGen()  //generates secure code from 000000 to 999999
+{
+  $min=0;
+  $max=999999;
+  $number=  random_int($min , $max );
+  $number=str_pad($number, 6, '0', STR_PAD_LEFT);
+  return $number;
+}
+{% endhighlight %}
+
+
+This simple function produces a secure random integer from 0-999999 padding the front with zeros in order to reach six full digits. This code is then sent to the user via the Twilio sendSMS function, where the user can input the number to log themselves in.
+
+<h2>Conclusion</h2>
+I hope this summary of my additional PHP scripts/features has been informative and/or entertaining. I was very pleased to get 2-factor working in particular because to me it is an impressive display for a student of web development to include. I hope the professor feels this way as well. Since this is my last blog as of now, I cannot confirm the contents of my future endeavors. However, if I were to take a guess it would involve my usage of D3.js framework and my use of JavaScript in the project. Thank you for taking the time to read these blogs, they have been useful as a method of gathering my thoughts while also making sure my code is halfway presentable. 
