@@ -21,38 +21,36 @@ The first feature is the change password feature. For any website it is wise to 
 {% highlight PHP %}
 //error handler receivers
 	if(isset($_GET["error"])){ //Error handlers that call functions to check errors, will print corresponding problem under form
-				if($_GET["error"] == "emptyinput"){
-					echo "<p>Please fill all fields</p>";
-				}
-				else if($_GET["error"] == "pwdMatch"){
-					echo "<p>Passwords don't match</p>";
-				}
-				else if($_GET["error"] == "wrongPwd"){
-					echo "<p>Incorrect Password</p>";
-				}
-				else if($_GET["error"] == "stmtFailed"){
-					echo "<p>Sorry Something went wrong. Please try again later.</p>";
-				}
-				else if($_GET["error"] == "success"){
-					echo "<p>Password changed Succesfully</p>";
-				}
-			}
+		if($_GET["error"] == "emptyinput"){
+			echo "<p>Please fill all fields</p>";
+		}
+		else if($_GET["error"] == "pwdMatch"){
+			echo "<p>Passwords don't match</p>";
+		}
+		else if($_GET["error"] == "wrongPwd"){
+			echo "<p>Incorrect Password</p>";
+		}
+		else if($_GET["error"] == "stmtFailed"){
+			echo "<p>Sorry Something went wrong. Please try again later.</p>";
+		}
+		else if($_GET["error"] == "success"){
+			echo "<p>Password changed Succesfully</p>";
+		}
+	}
 			
 			
 //error handler functions example:
-
-
-function emptyInputChange($oldPwd, $pwd, $pwdRepeat)  //checks if change password fields are empty, if empty return true
-{
-  $result;
-  if(empty($oldPwd) || empty($pwd) || empty($pwdRepeat)){
-    $result=true;
-  }
-  else {
-    $result=false;
-  }
-  return $result;
-}
+	function emptyInputChange($oldPwd, $pwd, $pwdRepeat)  //checks if change password fields are empty, if empty return true
+	{
+	  $result;
+	  if(empty($oldPwd) || empty($pwd) || empty($pwdRepeat)){
+		$result=true;
+	  }
+	  else {
+		$result=false;
+	  }
+	  return $result;
+	}
 {% endhighlight %}
 
 
@@ -105,23 +103,23 @@ This is the code for enabling 2-factor:
 
 {% highlight PHP %}
 	function disable2Factor($conn, $username) //disables 2-factor by setting user phone number to null in DB entry
-{
-  $sql = "UPDATE users SET usersPhone=NULL WHERE usersUid=? OR usersEmail=?;";
+	{
+	  $sql = "UPDATE users SET usersPhone=NULL WHERE usersUid=? OR usersEmail=?;";
 
-  $stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
+	  $stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
 
-  if (!mysqli_stmt_prepare($stmt, $sql)) {
-    //echo("Error description: " . $conn -> error);
-    header("location: ../accountSettings.php?error=stmtFailed");
-    exit();
-  }
-  mysqli_stmt_bind_param($stmt, "ss", $username, $username);
-  mysqli_stmt_execute($stmt);
-  mysqli_stmt_close($stmt);
+	  if (!mysqli_stmt_prepare($stmt, $sql)) {
+		//echo("Error description: " . $conn -> error);
+		header("location: ../accountSettings.php?error=stmtFailed");
+		exit();
+	  }
+	  mysqli_stmt_bind_param($stmt, "ss", $username, $username);
+	  mysqli_stmt_execute($stmt);
+	  mysqli_stmt_close($stmt);
 
-  $_SESSION["TwoFactor"] =  false;
-  header("location: ../accountSettings.php?error=twoFactorDisabled");
-}
+	  $_SESSION["TwoFactor"] =  false;
+	  header("location: ../accountSettings.php?error=twoFactorDisabled");
+	}
 {% endhighlight %}
 
 
@@ -130,22 +128,23 @@ This is the code for enabling 2-factor:
 
 {% highlight PHP %}
 	function disable2Factor($conn, $username) //disables 2-factor by setting user phone number to null in DB entry
-{
-  $sql = "UPDATE users SET usersPhone=NULL WHERE usersUid=? OR usersEmail=?;";
+	{
+	  $sql = "UPDATE users SET usersPhone=NULL WHERE usersUid=? OR usersEmail=?;";
 
-  $stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
+	  $stmt = mysqli_stmt_init($conn); //prepared statement to prevent sql injection attacks
 
-  if (!mysqli_stmt_prepare($stmt, $sql)) {
-    //echo("Error description: " . $conn -> error);
-    header("location: ../accountSettings.php?error=stmtFailed");
-    exit();
-  }
-  mysqli_stmt_bind_param($stmt, "ss", $username, $username);
-  mysqli_stmt_execute($stmt);
-  mysqli_stmt_close($stmt);
+	  if (!mysqli_stmt_prepare($stmt, $sql)) {
+		//echo("Error description: " . $conn -> error);
+		header("location: ../accountSettings.php?error=stmtFailed");
+		exit();
+	  }
+	  mysqli_stmt_bind_param($stmt, "ss", $username, $username);
+	  mysqli_stmt_execute($stmt);
+	  mysqli_stmt_close($stmt);
 
-  $_SESSION["TwoFactor"] =  false;
-  header("
+	  $_SESSION["TwoFactor"] =  false;
+	  header("location: ../accountSettings.php?error=twoFactorDisabled");
+	}
 {% endhighlight %}
 
 
@@ -156,13 +155,13 @@ Lastly we need to generate the code for the user to enter into the prompt:
 
 {% highlight PHP %}
 	function codeGen()  //generates secure code from 000000 to 999999
-{
-  $min=0;
-  $max=999999;
-  $number=  random_int($min , $max );
-  $number=str_pad($number, 6, '0', STR_PAD_LEFT);
-  return $number;
-}
+	{
+	  $min=0;
+	  $max=999999;
+	  $number=  random_int($min , $max );
+	  $number=str_pad($number, 6, '0', STR_PAD_LEFT);
+	  return $number;
+	}
 {% endhighlight %}
 
 
