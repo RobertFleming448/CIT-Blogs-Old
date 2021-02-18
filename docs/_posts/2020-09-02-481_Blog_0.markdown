@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "Robert Fleming Blog 0"
+date:   2020-09-02 14:42:28 -0700
+categories: jekyll update
+---
+
+
+<h2>Introduction</h2>
+
+1.
+1.
+
+
+<h2>The Bot</h2>
+
+{% highlight java %}
+	
+{% endhighlight %}
+
+
+
+*
+
+
+
+<h2>Conclusion</h2>
