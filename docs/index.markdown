@@ -8,64 +8,29 @@ layout: home
 <h2>Welcome to my Blog!</h2>
 This blog is for all my endeavors in CIT 480 and will include updates on all projects associated with the class.
 
-<h1>CIT 480 Blogs</h1>
-
 <h2>Blog 0</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-480-Blog_0 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-09-02-Blog_1 %})
 <h2>Blog 1</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-10-480-Blog_1 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-09-10-Blog_1_Real %})
 <h2>Blog 2</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-17-480-Blog_2 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-09-17-Blog_2 %})
 <h2>Blog 3</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-24-480-Blog_3 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-09-24-Blog_3 %})
 <h2>Blog 4</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-10-01-480-Blog_4 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-10-01-Blog_4 %})
 <h2>Blog 5</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-10-08-480-Blog_5 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-10-08-Blog_5 %})
 <h2>Blog 6</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-10-15-480-Blog_6 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-10-15-Blog_6 %})
 <h2>Blog 7</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-10-22-480-Blog_7 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-10-22-Blog_7 %})
 <h2>Blog 8</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-10-29-480-Blog_8 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-10-29-Blog_8 %})
 <h2>Blog 9</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-11-05-480-Blog_9 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-11-05-Blog_9 %})
 <h2>Blog 10</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-11-12-480-Blog_10 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-11-12-Blog_10 %})
 <h2>Blog 11</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-11-19-480-Blog_11 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-11-19-Blog_11 %})
 <h2>Blog 12</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-12-03-480-Blog_12 %})
-
-<br>
-<hr>
-<br>
-
-<h1>CIT 481 Blogs</h1>
-
-<h2>Blog 0</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_0 %})
-<h2>Blog 1</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_1 %})
-<h2>Blog 2</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_2 %})
-<h2>Blog 3</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_3 %})
-<h2>Blog 4</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_4 %})
-<h2>Blog 5</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_5 %})
-<h2>Blog 6</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_6 %})
-<h2>Blog 7</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_7 %})
-<h2>Blog 8</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_8 %})
-<h2>Blog 9</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_9 %})
-<h2>Blog 10</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_10 %})
-<h2>Blog 11</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_11 %})
-<h2>Blog 12</h2>
-[LINK]({{ site.baseurl }}{% post_url 2020-09-02-481_Blog_12 %})
+[LINK]({{ site.baseurl }}{% post_url 2020-12-03-Blog_12 %})
